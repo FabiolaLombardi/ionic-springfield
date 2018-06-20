@@ -12,8 +12,8 @@ import { NativeStorage } from '@ionic-native/native-storage';
 @NgModule({
   declarations: [
     MyApp,
-    LoginPage,
-    HomePage
+    HomePage,
+    LoginPage
   ],
   imports: [
     BrowserModule,
@@ -23,7 +23,7 @@ import { NativeStorage } from '@ionic-native/native-storage';
   entryComponents: [
     MyApp,
     LoginPage,
-    HomePage
+    HomePage,
   ],
   providers: [
     StatusBar,

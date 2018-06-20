@@ -8,52 +8,49 @@ import { NativeStorage } from '@ionic-native/native-storage';
   templateUrl: 'register.html',
 })
 export class RegisterPage {
-
-  registerSucess = false;
+  
+  registerSucess: boolean = false;
   user = { name: '', username: '', email: '', password: '', confirm_password: '' };
-
+  
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public alertCtrl: AlertController,
     private storage: NativeStorage
   ) {}
-
+  
   ionViewDidLoad() {
-    console.log('ionViewDidLoad RegisterPage');
-    this.storage.keys().then(keys => console.log(keys));
+    this.storage.keys()
+    .then(keys => console.log(keys));
   }
-
+  
   isAvailable(): Promise<boolean> {
-    return this.storage.keys().then(keys => 
-      keys.some(k => (this.user.username === k)) //returna true si encuentra un elemento que cumpla el callback, false si ninguno
+    return this.storage.keys()
+    .then(keys => 
+      keys.some(k => (this.user.username === k))
     );
   }
-
+  
   register() {
     if (this.user.password != this.user.confirm_password) {
       this.showMessage("Error", "La confirmación de la contraseña no coincide");
     } else {
-      this.isAvailable().then(exists => {
+      this.isAvailable()
+      .then(exists => {
         console.log(exists);
         if (exists) {
           this.showMessage('Error', 'El nombre de usuario ingresado no se encuentra disponible');
         } else {
-          
-          let userToStore = {
-            name: this.user.name,
-            username: this.user.username,
-            email: this.user.email,
-            password: this.user.password
-          };
-
-          this.storage.setItem(this.user.username, userToStore)
-            .then(() => {
+          this.storage.setItem(this.user.username, this.user)
+          .then(
+            () => {
               this.registerSucess = true;
               this.showMessage('Success', 'Usuario registrado satisfactoriamente.');
-            }, (err) => this.showMessage('Error', 'Error al registrar usuario. ' + err))
+            }, 
+            (err) => this.showMessage('Error', 'Error al registrar usuario. ' + err)
+          );
         }
-      }); // end of Promise
+      });
     }
   }
 
@@ -64,7 +61,7 @@ export class RegisterPage {
       buttons: [
         {
           text: 'OK',
-          handler: data => {
+          handler: () => {
             if (this.registerSucess) {
               this.navCtrl.popToRoot();
             }

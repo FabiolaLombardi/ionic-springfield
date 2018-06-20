@@ -23,9 +23,7 @@ export class LoginPage {
     private storage: NativeStorage
   ) {}
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
-  }
+  ionViewDidLoad() {}
 
   createAccount() {
     this.navCtrl.push('RegisterPage');
@@ -33,23 +31,27 @@ export class LoginPage {
 
   login() {
     this.showLoading();
-    this.storage.getItem(this.username).then((user) => {
-      if (this.password === user.password) {
-        this.navCtrl.setRoot(HomePage, {session: user});
-        this.showMessage('Success', 'Sesión iniciada');
-      } else {
-        this.showMessage('Error', 'Contraseña inválida');
-      }
-    }, (err) => {
-      this.showMessage('Error', 'Usuario no existe');
-      console.log('Error: ' + JSON.stringify(err));
-    });
+    this.storage.getItem(this.username)
+      .then(
+        user => {
+          if (this.password === user.password) {
+            this.navCtrl.setRoot(HomePage, {session: user});
+          } else {
+            this.showError('Contraseña inválida');
+          }
+        }, 
+        err => {
+          this.showError('Usuario no existe');
+          console.log('Error: ' + JSON.stringify(err));
+        }
+      );
   }
 
-  showMessage(title, text) {
+  showError(text) {
     this.loading.dismiss();
+
     let alert = this.alertCtrl.create({
-      title: title,
+      title: 'Error',
       subTitle: text,
       buttons: ['OK']
     });
@@ -58,7 +60,7 @@ export class LoginPage {
 
   showLoading() {
     this.loading = this.loadCtrl.create({
-      content: 'Espere...',
+      content: 'Procesando su solicitud...',
       dismissOnPageChange: true
     });
     this.loading.present();
