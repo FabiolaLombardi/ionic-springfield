@@ -1,0 +1,56 @@
+<ion-header>
+  
+  <ion-navbar color="primary">
+    <ion-title>Register</ion-title>
+  </ion-navbar>
+  
+</ion-header>
+
+
+<ion-content padding>
+  
+  <form #registerForm="ngForm" (ngSubmit)="register()">
+    <ion-row>
+      <ion-col>
+        <ion-list inset>
+          
+          <ion-item text-center>
+            <ion-img width="64" height="64" src="assets/icon/breakpoints64x64.png"></ion-img>
+          </ion-item>
+          
+          <ion-item>
+            <ion-icon name="person" item-left></ion-icon>
+            <ion-input type="text" placeholder="Nombre y Apellido" name="name" [(ngModel)]="user.name" required></ion-input>
+          </ion-item>
+          
+          <ion-item>
+            <ion-icon name="contact" item-left></ion-icon>
+            <ion-input type="text" placeholder="Usuario" name="username" [(ngModel)]="user.username" required></ion-input>
+          </ion-item>
+          
+          <ion-item>
+            <ion-icon name="mail" item-left></ion-icon>
+            <ion-input type="text" placeholder="Email" name="email" [(ngModel)]="user.email" required></ion-input>
+          </ion-item>
+          
+          <ion-item>
+            <ion-icon name="key" item-left></ion-icon>
+            <ion-input type="text" placeholder="Contraseña" name="password" [(ngModel)]="user.password" required></ion-input>
+          </ion-item>
+          
+          <ion-item>
+            <ion-icon name="key" item-left></ion-icon>
+            <ion-input type="text" placeholder="Confirmar contraseña" name="confirm_password" [(ngModel)]="user.confirm_password" required></ion-input>
+          </ion-item>
+          
+        </ion-list>
+      </ion-col>
+    </ion-row>
+    
+    <ion-row>
+      <button ion-button full type="submit" [disabled]="!registerForm.form.valid">Register</button>
+    </ion-row>
+    
+  </form>
+  
+</ion-content>
