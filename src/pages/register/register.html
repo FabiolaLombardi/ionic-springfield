@@ -7,17 +7,17 @@
 </ion-header>
 
 
-<ion-content padding>
-  
-  <form #registerForm="ngForm" (ngSubmit)="register()">
+<ion-content padding class="background">
+  <br>
+  <br>
+  <br>
+  <br>
+  <form #registerForm="ngForm" (ngSubmit)="register()" class="background">
     <ion-row>
-      <ion-col>
-        <ion-list inset>
+      <ion-col class="border">
+        <ion-list inset class="border2">
           
-          <ion-item text-center>
-            <ion-img width="64" height="64" src="assets/icon/breakpoints64x64.png"></ion-img>
-          </ion-item>
-          
+        
           <ion-item>
             <ion-icon name="person" item-left></ion-icon>
             <ion-input type="text" placeholder="Nombre y Apellido" name="name" [(ngModel)]="user.name" required></ion-input>
@@ -35,18 +35,19 @@
           
           <ion-item>
             <ion-icon name="key" item-left></ion-icon>
-            <ion-input type="text" placeholder="Contraseña" name="password" [(ngModel)]="user.password" required></ion-input>
+            <ion-input type="password" placeholder="Contraseña" name="password" [(ngModel)]="user.password" required></ion-input>
           </ion-item>
           
           <ion-item>
             <ion-icon name="key" item-left></ion-icon>
-            <ion-input type="text" placeholder="Confirmar contraseña" name="confirm_password" [(ngModel)]="user.confirm_password" required></ion-input>
+            <ion-input type="password" placeholder="Confirmar contraseña" name="confirm_password" [(ngModel)]="user.confirm_password" required></ion-input>
           </ion-item>
           
         </ion-list>
       </ion-col>
     </ion-row>
-    
+<br>
+
     <ion-row>
       <button ion-button full type="submit" [disabled]="!registerForm.form.valid">Register</button>
     </ion-row>

@@ -34,7 +34,7 @@ $app-direction: ltr;
 // The "primary" color is the only required color in the map.
 
 $colors: (
-  primary:    #9bca44,
+  primary:   rgb(252, 252, 7),
   secondary:  #32db64,
   danger:     #f53d3d,
   light:      #f4f4f4,
@@ -86,3 +86,9 @@ $colors: (
 
 @import "roboto";
 @import "noto-sans";
+
+
+@font-face {
+  font-family: 'Homer_Simpson_Revised';
+  src: url(../assets/fonts/Homer_Simpson_Revised.ttf) format('ttf');
+} 

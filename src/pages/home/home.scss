@@ -1,3 +1,23 @@
 page-home {
-
+    #ion-content{
+        background: url("../assets/icon/fondo.jpg")
+    }
+    .letter{
+        color: black;
+        background-color:  rgb(158, 213, 231),
+    }
+    .card{
+            border-radius: 5px;
+            border: solid;
+        
+    }
+    .welcome{
+            color: black;
+            background-color:  rgb(158, 213, 231);
+            border-radius: 5px;
+            border: solid;
+    }
+    .button{
+        display: block !important
+    }
 }

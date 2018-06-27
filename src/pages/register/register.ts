@@ -10,7 +10,7 @@ import { NativeStorage } from '@ionic-native/native-storage';
 export class RegisterPage {
   
   registerSucess: boolean = false;
-  user = { name: '', username: '', email: '', password: '', confirm_password: '' };
+  user = { name: '', username: '', email: '', password: '', confirm_password: '', favorites: [] };
   
   constructor(
     public navCtrl: NavController,

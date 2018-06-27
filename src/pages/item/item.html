@@ -1,0 +1,24 @@
+<ion-header>
+  
+    <ion-navbar color="primary">
+      <ion-title>Item Description</ion-title>
+    </ion-navbar>
+    
+  </ion-header>
+  <ion-content>
+  <ion-card >
+        <img src="{{character.image}}" alt=""  height="450px">
+      
+    <ion-card-content>
+        <ion-card-title>
+        {{character.character}}
+        </ion-card-title>
+        <button ion-button icon-only (click)="openMenu()">
+                <ion-icon name="heart" ></ion-icon>
+              </button>
+        
+        </ion-card-content>
+        </ion-card>
+            
+
+        </ion-content>

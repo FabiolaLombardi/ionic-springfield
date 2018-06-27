@@ -1,32 +1,35 @@
 <ion-header>
-
+  <style>
+    body{
+      font-family: 'Homer_Simpson_Revised' !important;
+      font-weight: 400 !important;
+      }
+    </style>  
   <ion-navbar color="primary">
     <ion-title>Login</ion-title>
   </ion-navbar>
 
 </ion-header>
 
-<ion-content padding>
+<ion-content  class="background">
+<br>
+<br>
+<br>
+<br>
+<ion-img class="background" width="380px" height="180px" src="assets/icon/logo.png"></ion-img>
 
-  <form #loginForm="ngForm" (ngSubmit)="login()" autocomplete="off">
+  <form #loginForm="ngForm" (ngSubmit)="login()" autocomplete="off" padding>
     <ion-row>
-      <ion-col>
-        <ion-list inset>
-
-          <ion-item text-center padding-bottom>
-            <ion-img width="64" height="64" src="assets/icon/breakpoints64x64.png"></ion-img>
-            <h2 text-center>ion-books</h2>
-            <p text-center>Your BestSellers List</p>
-          </ion-item>
-          
+      <ion-col class="border">
+        <ion-list inset class="border2" >
           <ion-item>
             <ion-icon name="contact" item-left></ion-icon>
-            <ion-input type="text" placeholder="Usuario" name="username" [(ngModel)]="username" required></ion-input>
+            <ion-input type="text" placeholder="Usuario" name="username" [(ngModel)]="username" required class="letter"></ion-input>
           </ion-item>
           
           <ion-item>
             <ion-icon name="key" item-left></ion-icon>
-            <ion-input type="text" placeholder="Contraseña" name="password" [(ngModel)]="password" required></ion-input>
+            <ion-input type="password" placeholder="Contraseña" name="password" [(ngModel)]="password" required class="letter"></ion-input>
           </ion-item>
           
         </ion-list>
@@ -35,13 +38,13 @@
     
     <ion-row>
       <ion-col>
-        <button ion-button full type="submit" [disabled]="!loginForm.form.valid">Sign In</button>
+        <button ion-button full primary type="submit" [disabled]="!loginForm.form.valid">Sign In</button>
       </ion-col>
     </ion-row>
     
   </form>
   
   <ion-row>
-    <button ion-button block clear (click)="createAccount()">Create New Account</button>
+    <button ion-button block clear class="letter" (click)="createAccount()">Create New Account</button>
   </ion-row>
-</ion-content>
+ </ion-content>

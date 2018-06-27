@@ -1,3 +1,40 @@
 page-login {
 
+    .background{
+        background-color: rgb(158, 213, 231),
+    }
+    .border{
+        border-radius: 5px;
+        border: solid;
+    }
+    .border2{
+            border: solid;
+            border-radius: 5px;
+            
+    }
+    .letter{
+        font-family: url('../../www/assets/fonts/Homer_Simpson_Revised.ttf');
+        font-size: 15px;
+        font-weight: bold;
+      
+        color: rgb(0, 0, 0);
+        text-decoration: underline;
+
+    }
+    .homer{
+        width: 190px;
+        height: 80px;
+        /* object-position: center; */
+        position: absolute !important;
+        object-position: center !important;
+        left: 100px;
+        background-color: rgb(158, 213, 231);
+        top: 467px;
+    }
+    .list{
+        font-family: url('../../www/assets/fonts/Homer_Simpson_Revised.ttf');
+    }
+
+    
+
 }
