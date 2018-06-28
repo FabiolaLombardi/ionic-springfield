@@ -1,2 +1,2 @@
 # ion-books
-Simple mobile application to fetch best-sellers from the New York Times Books API also simulating a login/registration with Native Storage. Made with Ionic Framework.
+Simple mobile application to read random quotes from the Simpsons also simulating a login/registration with Native Storage plugin. Made with Ionic Framework.
