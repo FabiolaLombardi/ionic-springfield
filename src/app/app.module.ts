@@ -10,6 +10,7 @@ import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { HttpRequestProvider } from '../providers/http-request'
+import { Store } from '../store';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { HttpRequestProvider } from '../providers/http-request'
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     NativeStorage,
-    HttpRequestProvider
+    HttpRequestProvider,
+    Store
   ]
 })
 export class AppModule {}

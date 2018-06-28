@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
-import { NativeStorage } from '@ionic-native/native-storage';
 import { ActionSheetController } from 'ionic-angular';
+import { User } from '../../user';
+import { Store } from '../../store';
 
 @IonicPage()
 @Component({
@@ -10,23 +11,21 @@ import { ActionSheetController } from 'ionic-angular';
 })
 export class ItemPage {
 
-    user={};
-    character: {};
+    user: User;
+    character: any;
+
     constructor(
         public navCtrl: NavController,
         public navParams: NavParams,
         public alertCtrl: AlertController,
-        private storage: NativeStorage,
+        private storage: Store,
         public actionSheetCtrl: ActionSheetController
       ) {
         this.character = this.navParams.get('info');
-        console.log(JSON.stringify(this.user));
-        console.log(JSON.stringify(this.character));
+        this.user = this.navParams.get('session');
       }
 
-      ionViewDidLoad() {
-        //console.log(this.all);
-      }
+      ionViewDidLoad() {}
 
       openMenu() {
         const actionSheet = this.actionSheetCtrl.create({
@@ -35,14 +34,23 @@ export class ItemPage {
             {
                 text: 'Favorite',
                 handler: () => {
-                  let user = this.navParams.get('session');
-                  let character = this.navParams.get('info');
-                  user.favorites.push({image: character.image});
-                  this.save(user.username, user);
-                  /*this.favoriteCharacters = user.favorite;
-                  let i of favorite*/
+                  console.log(JSON.stringify(this.character));
+                  this.storage.setNewValue(this.user.username, this.navParams.get('info'));
+
+                  this.storage.get(this.user.username)
+                    .then((updatedUser) => {
+                      console.log(JSON.stringify(updatedUser));
+                      this.user = updatedUser;
+                    })
+                    .catch((err) => {
+                      console.log('Imposible actualizar usuario. Error: ' + JSON.stringify(err));
+                    })
+
+                  this.navParams.data = { session: this.user };
+                  this.navCtrl.pop();
                 }
-              },{
+              },
+              {
                 text: 'Cancel',
                 role: 'cancel',
                 handler: () => {
@@ -52,12 +60,5 @@ export class ItemPage {
             ]
         });
         actionSheet.present();
-      }
-      
-      save(username, user) {
-        this.storage.setItem(username, user).then(
-          () => console.log('Favorito agregado'),
-          (err) => console.log('No se pudo guardar. Error: ' + err)
-        )
       }
 }

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
-import { NativeStorage } from '@ionic-native/native-storage';
-
+import { Store } from '../../store';
 import { HomePage } from '../home/home';
+import { User } from '../../user';
 
 @IonicPage()
 @Component({
@@ -11,17 +11,18 @@ import { HomePage } from '../home/home';
 })
 export class LoginPage {
 
+  userLogin: User;
   loading: Loading;
-  private username: string;
-  private password: string;
 
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams, 
     public alertCtrl: AlertController,
     public loadCtrl: LoadingController,
-    private storage: NativeStorage
-  ) {}
+    private storage: Store
+  ) {
+    this.userLogin = new User();
+  }
 
   ionViewDidLoad() {}
 
@@ -31,25 +32,24 @@ export class LoginPage {
 
   login() {
     this.showLoading();
-    this.storage.getItem(this.username)
-      .then(
-        user => {
-          if (this.password === user.password) {
-            this.navCtrl.setRoot(HomePage, {session: user});
-          } else {
-            this.showError('Contraseña inválida');
-          }
-        }, 
-        err => {
-          this.showError('Usuario no existe');
-          console.log('Error: ' + JSON.stringify(err));
+    this.storage.get(this.userLogin.username)
+      .then((data) => {
+        console.log(data)
+        if (this.userLogin.password === data.password) {
+          this.navCtrl.setRoot(HomePage, {session: data});
+        } else {
+          this.showError('Combinación de usuario y contraseña inválida');
+          this.dismissLoad();
         }
-      );
+      })
+      .catch((error) => {
+        this.dismissLoad();
+        this.showError('Usuario no existe');
+        console.log('Error: ' + error);
+      })
   }
 
   showError(text) {
-    this.loading.dismiss();
-
     let alert = this.alertCtrl.create({
       title: 'Error',
       subTitle: text,
@@ -64,6 +64,10 @@ export class LoginPage {
       dismissOnPageChange: true
     });
     this.loading.present();
+  }
+  
+  dismissLoad() {
+    this.loading.dismiss();
   }
 
 }

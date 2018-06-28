@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
-import { NativeStorage } from '@ionic-native/native-storage';
+import { User } from '../../user';
+import { Store } from '../../store';
 
 @IonicPage()
 @Component({
@@ -9,48 +10,44 @@ import { NativeStorage } from '@ionic-native/native-storage';
 })
 export class RegisterPage {
   
-  registerSucess: boolean = false;
-  user = { name: '', username: '', email: '', password: '', confirm_password: '', favorites: [] };
+  success: boolean = false;
+  user: User;
+  userStore: Storage;
   
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public alertCtrl: AlertController,
-    private storage: NativeStorage
-  ) {}
-  
-  ionViewDidLoad() {
-    this.storage.keys()
-    .then(keys => console.log(keys));
+    public storage: Store
+  ) {
+    this.user = new User();
+    this.user.favorites = [];
   }
   
-  isAvailable(): Promise<boolean> {
-    return this.storage.keys()
-    .then(keys => 
-      keys.some(k => (this.user.username === k))
-    );
-  }
-  
+  ionViewDidLoad() {}
+
   register() {
     if (this.user.password != this.user.confirm_password) {
       this.showMessage("Error", "La confirmación de la contraseña no coincide");
     } else {
-      this.isAvailable()
-      .then(exists => {
-        console.log(exists);
-        if (exists) {
-          this.showMessage('Error', 'El nombre de usuario ingresado no se encuentra disponible');
-        } else {
-          this.storage.setItem(this.user.username, this.user)
-          .then(
-            () => {
-              this.registerSucess = true;
-              this.showMessage('Success', 'Usuario registrado satisfactoriamente.');
-            }, 
-            (err) => this.showMessage('Error', 'Error al registrar usuario. ' + err)
-          );
-        }
-      });
+      this.storage.isAvailable(this.user.username)
+        .then((exists) => {
+          console.log(exists);
+          if (exists) {
+            this.showMessage('Error', 'El nombre de usuario ingresado no se encuentra disponible');
+          } else {
+            this.storage.set(this.user.username, this.user)
+              .then((done) => {
+                if (done) {
+                  this.success = done;
+                  this.showMessage('Success', 'Usuario registrado satisfactoriamente.')
+                }
+              })
+              .catch((not) => {
+                this.showMessage('Error', 'Error al registrar usuario. ')
+              })
+          }
+        })
     }
   }
 
@@ -62,7 +59,7 @@ export class RegisterPage {
         {
           text: 'OK',
           handler: () => {
-            if (this.registerSucess) {
+            if (this.success) {
               this.navCtrl.popToRoot();
             }
           }
