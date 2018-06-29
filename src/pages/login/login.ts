@@ -36,7 +36,7 @@ export class LoginPage {
       .then((data) => {
         console.log(data)
         if (this.userLogin.password === data.password) {
-          this.navCtrl.setRoot(HomePage, {session: data});
+          this.navCtrl.setRoot(HomePage, {session: data, username: data.username});
         } else {
           this.showError('Combinación de usuario y contraseña inválida');
           this.dismissLoad();
@@ -52,6 +52,7 @@ export class LoginPage {
   showError(text) {
     let alert = this.alertCtrl.create({
       title: 'Error',
+      cssClass: 'alert',
       subTitle: text,
       buttons: ['OK']
     });

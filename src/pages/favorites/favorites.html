@@ -6,9 +6,9 @@
 
 
 </ion-header>
-<ion-content>
-        <ion-list *ngFor="let i of favorites">
-                <ion-item-sliding #item (tap)="itemPress(i)">
+<ion-content class="alert">
+        <ion-list *ngFor="let i of favorites" class="alert">
+                <ion-item-sliding #item (tap)="itemPress(i)" class="alert">
                   <ion-item>
                     <span>{{i.quote}}</span>
                   </ion-item>

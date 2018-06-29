@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 import { ActionSheetController } from 'ionic-angular';
 import { User } from '../../user';
 import { Store } from '../../store';
+import { HomePage } from '../home/home';
 
 @IonicPage()
 @Component({
@@ -32,6 +33,7 @@ export class ItemPage {
           title: 'Add to Favorites',
           buttons: [
             {
+                cssClass: 'alert',
                 text: 'Favorite',
                 handler: () => {
                  // console.log(JSON.stringify(this.character));
@@ -46,8 +48,10 @@ export class ItemPage {
                       console.log('Imposible actualizar usuario. Error: ' + JSON.stringify(err));
                     })
 
-                  this.navParams.data = { session: this.user };
-                  this.navCtrl.pop();
+                  console.log(JSON.stringify(this.navParams.data))
+                  this.navCtrl.setRoot(HomePage, {session: this.user})
+                  this.showMesaje('Agregado a Favoritos');
+                  //this.navCtrl.pop();
                 }
               },
               {
@@ -60,5 +64,12 @@ export class ItemPage {
             ]
         });
         actionSheet.present();
+      }
+      showMesaje(text) {
+        let alert = this.alertCtrl.create({
+          subTitle: text,
+          buttons: ['OK']
+        });
+        alert.present();
       }
 }

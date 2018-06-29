@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { HttpRequestProvider } from "../../providers//http-request";
-//import { Store } from '../../store';
+import { Store } from '../../store';
 import { User } from '../../user';
 //import {ItemPage } from '../item/item';
 
@@ -21,14 +21,14 @@ export class HomePage {
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams, 
+    public storage: Store,
     private requestProvider: HttpRequestProvider
   ) 
     {
-      this.user = this.navParams.get('session')
-      //console.log(JSON.stringify(this.user))
+    this.user = this.navParams.get('session')
     }
   
-  ionViewDidLoad(){
+  ionViewDidLoad() {
     this.requestProvider.getCharacters(this.num).subscribe(data =>{
       //console.log(data);
       this.results=data;
@@ -40,7 +40,8 @@ export class HomePage {
     });
   }
 
-  doInfinite(infiniteScroll){
+
+  doInfinite(infiniteScroll) {
     console.log("Begin async operation");
     this.requestProvider.getCharacters(this.num)
       .subscribe(data => {
@@ -57,12 +58,13 @@ export class HomePage {
 
   viewItem(i) {
     //console.log(i);
+
     this.navCtrl.push('ItemPage', { session: this.user, info: i });
   }
 
   viewFavorites(){
     //console.log(JSON.stringify({session:this.user}));
-    this.navCtrl.push('FavoritesPage', { session: this.user});
+    this.navCtrl.push('FavoritesPage', { session: this.user });
   }
 
   logout() {

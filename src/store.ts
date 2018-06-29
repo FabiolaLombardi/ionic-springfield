@@ -32,12 +32,33 @@ export class Store {
     this.get(key)
       .then((user) => {
         user.favorites.push(values);
-        this.set(user.username, user);
+        this.set(user.username, user)
+          .then((done) => {
+          console.log('Correcto' + done);
+          })
+          .catch((not) => {
+            console.log(not);
+          })
       })
       .catch((err) => {
         console.log('Error:' + err);
       })
   }
+
+  change(key, values) {
+    this.get(key)
+      .then((user) => {
+        user.favorites = values;
+        this.set(user.username, user);
+      })
+      .catch((err) => {
+        console.log('Error: ' + err);
+      })
+  }
+
+
+
+
   
   isAvailable(userKey): Promise<boolean> {
     return this.nativeStorage.keys()
