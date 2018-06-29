@@ -1,6 +1,7 @@
 import { NativeStorage } from '@ionic-native/native-storage';
 import { Injectable } from '@angular/core';
 import { User } from './user';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class Store {
@@ -27,7 +28,7 @@ export class Store {
   }
   
   // quite hardcoded to add favorites
-  setNewValue(key, values) {
+  setNewValue(key, values)  {
     this.get(key)
       .then((user) => {
         user.favorites.push(values);

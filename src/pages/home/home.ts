@@ -17,7 +17,7 @@ export class HomePage {
   num = 7;
   results = [];
   show = [];
-
+  fav =[];
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams, 
@@ -25,7 +25,7 @@ export class HomePage {
   ) 
     {
       this.user = this.navParams.get('session')
-      console.log(JSON.stringify(this.user))
+      //console.log(JSON.stringify(this.user))
     }
   
   ionViewDidLoad(){
@@ -49,7 +49,7 @@ export class HomePage {
         for(let i = 0; i < this.results.length; i++) {
           this.show.push(this.results[i]);
         }
-      console.log(this.show);
+      //console.log(this.show);
       console.log("Async operation has ended");
       infiniteScroll.complete();
     });
@@ -58,6 +58,11 @@ export class HomePage {
   viewItem(i) {
     //console.log(i);
     this.navCtrl.push('ItemPage', { session: this.user, info: i });
+  }
+
+  viewFavorites(){
+    //console.log(JSON.stringify({session:this.user}));
+    this.navCtrl.push('FavoritesPage', { session: this.user});
   }
 
   logout() {

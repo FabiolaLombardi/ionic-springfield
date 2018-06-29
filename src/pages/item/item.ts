@@ -34,12 +34,12 @@ export class ItemPage {
             {
                 text: 'Favorite',
                 handler: () => {
-                  console.log(JSON.stringify(this.character));
+                 // console.log(JSON.stringify(this.character));
                   this.storage.setNewValue(this.user.username, this.navParams.get('info'));
 
                   this.storage.get(this.user.username)
                     .then((updatedUser) => {
-                      console.log(JSON.stringify(updatedUser));
+                      //console.log(JSON.stringify(updatedUser));
                       this.user = updatedUser;
                     })
                     .catch((err) => {

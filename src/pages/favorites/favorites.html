@@ -1,0 +1,18 @@
+<ion-header>
+
+    <ion-navbar color="primary">
+        <ion-title>Favorites</ion-title>
+    </ion-navbar>
+
+
+</ion-header>
+<ion-content>
+        <ion-list *ngFor="let i of favorites">
+                <ion-item-sliding #item (tap)="itemPress(i)">
+                  <ion-item>
+                    <span>{{i.quote}}</span>
+                  </ion-item>
+
+                </ion-item-sliding>
+            </ion-list>          
+</ion-content>
