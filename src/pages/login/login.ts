@@ -11,8 +11,8 @@ import { User } from '../../user';
 })
 export class LoginPage {
 
-  userLogin: User;
-  loading: Loading;
+  username: string;
+  password: string
 
   constructor(
     public navCtrl: NavController, 
